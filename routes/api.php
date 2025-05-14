@@ -2,10 +2,12 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\QuizController;
 use App\Http\Controllers\BibliothequeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LessonController;
+use App\Http\Controllers\QuizController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +56,22 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::post('login',[AuthController::class,'login']);
 Route::post('register',[AuthController::class,'register']);
-Route::get('/courses/{courseId}/quiz', [QuizController::class, 'getQuizByCourse']);
-Route::get('/quiz/{quizId}', [QuizController::class, 'getQuizWithQuestions']);
+// Routes protégées par authentification
+Route::middleware('auth:sanctum')->group(function () {
+    // Routes pour les leçons
+    Route::get('/lessons', [LessonController::class, 'index']);
+    Route::get('/lessons/{id}', [LessonController::class, 'show']);
+    
+    // Routes pour les quiz
+    Route::get('/lessons/{id}/quiz', [QuizController::class, 'getQuizByLesson']);
+    
+    // Routes pour l'administration (si nécessaire)
+    Route::post('/lessons', [LessonController::class, 'store']);
+    Route::put('/lessons/{id}', [LessonController::class, 'update']);
+    Route::delete('/lessons/{id}', [LessonController::class, 'destroy']);
+    
+    Route::post('/quizzes', [QuizController::class, 'store']);
+    Route::put('/quizzes/{id}', [QuizController::class, 'update']);
+    Route::delete('/quizzes/{id}', [QuizController::class, 'destroy']);
+});
 Route::get('/bibliotheque', [BibliothequeController::class, 'index']); // Récupérer tous les livres

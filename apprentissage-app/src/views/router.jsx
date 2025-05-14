@@ -12,6 +12,7 @@ import AccessLesson from "../views/AccessLesson"; // Import de AccessLesson
 import BibliothequeView from "./bibliothèque.jsx"; // Import de BibliothequeView
 import TousLesLivres from "./TousLesLivres.jsx"; // Import de TousLesLivres
 import Podcasts from "./Podcasts.jsx"; // Import de Podcasts
+import Quiz from "./Quiz.jsx"; // Import de Quiz
 const router = createBrowserRouter([
     {
         path: "/",
@@ -63,6 +64,11 @@ const router = createBrowserRouter([
     path: '/Podcasts',
     element: < Podcasts />, 
   },
+  {
+    path: '/quiz/:lessonTitle', // Ajoutez cette route pour le quiz
+    element: <Quiz />, 
+  },
+  
 
   
 ]);

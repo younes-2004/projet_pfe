@@ -72,6 +72,12 @@ const AccessLesson = () => {
     e.preventDefault();
     onLogout();
   };
+  
+  // Ajouter cette fonction pour naviguer vers le quiz
+  const handleLessonClick = (lessonTitle) => {
+    // Vous pouvez utiliser le titre ou un ID pour naviguer vers le quiz correspondant
+    navigate(`/quiz/${encodeURIComponent(lessonTitle)}`);
+  };
 
   return (
     <div className="access-lesson-container">
@@ -111,7 +117,12 @@ const AccessLesson = () => {
       {/* Lessons Grid */}
       <div className="lessons-grid">
         {lessons.map((lesson, index) => (
-          <div key={index} className="lesson-card">
+          <div 
+            key={index} 
+            className="lesson-card"
+            onClick={() => handleLessonClick(lesson.title)}
+            style={{ cursor: 'pointer' }}
+          >
             <div className="lesson-time">
               <span className="time-icon">⏰</span> {lesson.time}
             </div>
