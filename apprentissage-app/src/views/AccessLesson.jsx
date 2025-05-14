@@ -87,7 +87,7 @@ const AccessLesson = () => {
         <nav className="nav-links">
           <a href="/">Accueil</a>
           <a href="/access-lesson">Leçons</a>
-          <a href="#">Progression</a>
+          <a href="/mes-statistiques">Progression</a>
           <a href="#">Mes tests</a>
           <a href="/tous-les-livres">Bibliothèque</a>
         </nav>

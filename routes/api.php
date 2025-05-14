@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\QuizController;
+use App\Http\Controllers\QuizResultController;
+
 
 
 /*
@@ -74,5 +76,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/quizzes', [QuizController::class, 'store']);
     Route::put('/quizzes/{id}', [QuizController::class, 'update']);
     Route::delete('/quizzes/{id}', [QuizController::class, 'destroy']);
+});
+// routes/api.php
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/quiz-results', [QuizResultController::class, 'store']);
+    // ... routes existantes
+    Route::get('/quiz-results', [QuizResultController::class, 'getUserResults']);
+    Route::get('/user-stats', [QuizResultController::class, 'getUserStats']);
 });
 Route::get('/bibliotheque', [BibliothequeController::class, 'index']); // Récupérer tous les livres

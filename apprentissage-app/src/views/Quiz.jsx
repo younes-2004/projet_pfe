@@ -16,6 +16,8 @@ const Quiz = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [quizCompleted, setQuizCompleted] = useState(false);
   const [score, setScore] = useState(0);
+  const [scoreSaved, setScoreSaved] = useState(false);
+  const [saveError, setSaveError] = useState(null);
 
   // Fonction pour associer titre à ID
   const getLessonIdFromTitle = (title) => {
@@ -96,11 +98,34 @@ const Quiz = () => {
     }
   };
 
-  const handleSubmitQuiz = async () => {
+  // Fonction pour sauvegarder le score localement en cas d'échec de l'API
+  const saveScoreLocally = (quizData, finalScore) => {
+    try {
+      const savedScores = JSON.parse(localStorage.getItem('quizScores') || '[]');
+      const scoreData = {
+        quiz_id: quizData.id,
+        quiz_title: quizData.title,
+        score: finalScore,
+        date: new Date().toISOString()
+      };
+      savedScores.push(scoreData);
+      localStorage.setItem('quizScores', JSON.stringify(savedScores));
+      console.log("Score sauvegardé localement:", scoreData);
+      return true;
+    } catch (e) {
+      console.error("Erreur lors de la sauvegarde locale:", e);
+      return false;
+    }
+  };
+
+  // Modifiez la partie handleSubmitQuiz du composant Quiz
+ // Dans la fonction handleSubmitQuiz du composant Quiz.jsx
+const handleSubmitQuiz = async () => {
     if (!quiz || !quiz.questions) return;
     
     setIsSubmitting(true);
-
+    setSaveError(null);
+  
     // Calculer le score
     let correctAnswers = 0;
     quiz.questions.forEach(question => {
@@ -109,11 +134,102 @@ const Quiz = () => {
         correctAnswers++;
       }
     });
-
+  
     const finalScore = (correctAnswers / quiz.questions.length) * 100;
-    setScore(finalScore);
-    setQuizCompleted(true);
-    setIsSubmitting(false);
+    
+    // Envoyer le score au backend
+    try {
+      console.log("Envoi du score au backend:", {
+        quiz_id: quiz.id,
+        score: finalScore
+      });
+      
+      const response = await axiosClient.post('/quiz-results', {
+        quiz_id: quiz.id,
+        score: finalScore
+      });
+      
+      console.log("Réponse de l'API:", response.data);
+      setScoreSaved(true);
+      // Dans handleSubmitQuiz du composant Quiz.jsx, après setScoreSaved(true)
+// Vérifier si l'utilisateur a débloqué une médaille
+const checkAchievements = (response) => {
+    const achievements = [];
+    
+    // Premier quiz complété
+    if (response.data.total_quizzes === 1) {
+      achievements.push({
+        title: "Premier pas",
+        description: "Vous avez complété votre premier quiz !",
+        icon: "🎯"
+      });
+    }
+    
+    // Score excellent
+    if (finalScore >= 80) {
+      achievements.push({
+        title: "Excellent",
+        description: "Vous avez obtenu un score supérieur à 80% !",
+        icon: "🌟"
+      });
+    }
+    
+    // Afficher les médailles débloquées
+    if (achievements.length > 0) {
+      setUnlockedAchievements(achievements);
+    }
+  };
+  
+  // Optionnellement, ajouter à la réponse de l'API
+  if (response.data && response.data.new_achievements) {
+    setUnlockedAchievements(response.data.new_achievements);
+  }
+    } catch (error) {
+      console.error("Erreur lors de l'enregistrement du score:", error);
+      if (error.response) {
+        console.error("Statut de l'erreur:", error.response.status);
+        console.error("Données d'erreur:", error.response.data);
+      }
+      setSaveError("Impossible d'enregistrer votre score dans la base de données.");
+    } finally {
+      // Toujours afficher le résultat
+      setScore(finalScore);
+      setQuizCompleted(true);
+      setIsSubmitting(false);
+    }
+    // Dans handleSubmitQuiz du composant Quiz.jsx, après setScoreSaved(true)
+// Vérifier si l'utilisateur a débloqué une médaille
+const checkAchievements = (response) => {
+  const achievements = [];
+  
+  // Premier quiz complété
+  if (response.data.total_quizzes === 1) {
+    achievements.push({
+      title: "Premier pas",
+      description: "Vous avez complété votre premier quiz !",
+      icon: "🎯"
+    });
+  }
+  
+  // Score excellent
+  if (finalScore >= 80) {
+    achievements.push({
+      title: "Excellent",
+      description: "Vous avez obtenu un score supérieur à 80% !",
+      icon: "🌟"
+    });
+  }
+  
+  // Afficher les médailles débloquées
+  if (achievements.length > 0) {
+    setUnlockedAchievements(achievements);
+  }
+};
+
+// Optionnellement, ajouter à la réponse de l'API
+if (response.data && response.data.new_achievements) {
+  setUnlockedAchievements(response.data.new_achievements);
+}
   };
 
   // Logs de débogage pour mieux comprendre l'état
@@ -147,21 +263,64 @@ const Quiz = () => {
     );
   }
 
-  if (quizCompleted) {
+  // Dans la section quizCompleted du composant Quiz.jsx
+if (quizCompleted) {
     return (
       <div className="quiz-results">
         <h2>Quiz terminé !</h2>
         <div className="score-display">
           <h3>Votre score: {score.toFixed(0)}%</h3>
           <p>Vous avez obtenu {Math.round(score * quiz.questions.length / 100)} réponses correctes sur {quiz.questions.length} questions.</p>
+          {scoreSaved && <p className="score-saved">✅ Votre score a été enregistré avec succès.</p>}
+          {saveError && <p className="score-error">⚠️ {saveError}</p>}
         </div>
-        <button className="btn-return" onClick={() => navigate('/access-lesson')}>
-          Retour aux leçons
-        </button>
+        
+        <div className="quiz-feedback">
+          {score >= 80 && (
+            <div className="feedback excellent">
+              <h4>Excellent !</h4>
+              <p>Vous maîtrisez très bien ce sujet. Continuez comme ça !</p>
+            </div>
+          )}
+          {score >= 60 && score < 80 && (
+            <div className="feedback good">
+              <h4>Bon travail !</h4>
+              <p>Vous avez de bonnes connaissances sur ce sujet, mais il y a encore place à l'amélioration.</p>
+            </div>
+          )}
+          {score >= 40 && score < 60 && (
+            <div className="feedback average">
+              <h4>Pas mal !</h4>
+              <p>Vous avez des connaissances de base sur ce sujet. Continuez à pratiquer pour progresser.</p>
+            </div>
+          )}
+          {score < 40 && (
+            <div className="feedback needs-improvement">
+              <h4>À améliorer</h4>
+              <p>Ce sujet semble difficile pour vous. Nous vous recommandons de revoir la leçon.</p>
+            </div>
+          )}
+        </div>
+        
+        <div className="result-buttons">
+          <button className="btn-retry" onClick={() => {
+            setQuizCompleted(false);
+            setCurrentQuestion(0);
+            setSelectedAnswers({});
+            setScore(0);
+          }}>
+            Réessayer ce quiz
+          </button>
+          <button className="btn-stats" onClick={() => navigate('/mes-statistiques')}>
+            Voir mes statistiques
+          </button>
+          <button className="btn-return" onClick={() => navigate('/access-lesson')}>
+            Retour aux leçons
+          </button>
+        </div>
       </div>
     );
   }
-
   const question = quiz.questions[currentQuestion];
   
   // Vérification supplémentaire pour éviter l'erreur

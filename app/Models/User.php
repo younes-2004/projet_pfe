@@ -41,4 +41,9 @@ protected $table = 'users';
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    // Ajoutez cette relation au modèle User
+public function quizResults()
+{
+    return $this->hasMany(QuizResult::class);
+}
 }

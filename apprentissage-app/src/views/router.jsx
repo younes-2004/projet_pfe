@@ -13,6 +13,8 @@ import BibliothequeView from "./bibliothèque.jsx"; // Import de BibliothequeVie
 import TousLesLivres from "./TousLesLivres.jsx"; // Import de TousLesLivres
 import Podcasts from "./Podcasts.jsx"; // Import de Podcasts
 import Quiz from "./Quiz.jsx"; // Import de Quiz
+import UserStats from "./UserStats.jsx"; // Importez le composant UserStats
+
 const router = createBrowserRouter([
     {
         path: "/",
@@ -68,7 +70,11 @@ const router = createBrowserRouter([
     path: '/quiz/:lessonTitle', // Ajoutez cette route pour le quiz
     element: <Quiz />, 
   },
-  
+  {
+    path: '/mes-statistiques', // Ajoutez cette nouvelle route
+    element: <UserStats />,
+},
+
 
   
 ]);
