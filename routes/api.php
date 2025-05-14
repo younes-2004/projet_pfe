@@ -19,6 +19,7 @@ use App\Http\Controllers\QuizController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::post('login',[AuthController::class,'login']);
 
 Route::middleware('auth:sanctum')->group(function() {
     Route::get('logout',[AuthController::class,'logout']);
@@ -54,7 +55,7 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 });
 
-Route::post('login',[AuthController::class,'login']);
+
 Route::post('register',[AuthController::class,'register']);
 // Routes protégées par authentification
 Route::middleware('auth:sanctum')->group(function () {
