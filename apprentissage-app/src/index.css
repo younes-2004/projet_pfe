@@ -1,0 +1,1146 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+.header-logo {
+  width: 40px; /* Ajustez la taille du logo */
+  height: 40px;
+  left: 1%;
+}
+.login-container {
+  position: relative;
+  background-color:#fcfcfc4d;
+  background-size: cover;; /* L'image couvre tout l'espace disponible */
+  background-repeat: no-repeat; /* Empêche la répétition de l'image */
+  background-position: center top; /* Ajuste la position de l'image */
+  min-height: 100vh; /* Assure que le conteneur prend au moins toute la hauteur de la fenêtre */
+  width: 100%; /* Prend toute la largeur */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 50%;
+}
+
+.bottom-left-image {
+  position: absolute;
+  left: 70PX;
+  bottom: -20px;
+  width: 500px; /* Ajustez selon vos besoins */
+  height: auto;
+  z-index: 10; /* Pour s'assurer qu'elle est au-dessus du fond */
+  padding: 10px; /* Marge intérieure */
+}
+
+.bottom-left-image img {
+  width: 100%;
+  height: auto;
+}
+.login-signup-form {
+  display: flex;
+  flex-direction: column; /* Aligne les éléments verticalement */
+  justify-content: flex-end; /* Aligne les éléments en haut */
+  align-items:flex-start; /* Centre horizontalement */
+  width: 700Px; /* Prend toute la largeur */
+  max-width: 700px; /* Largeur maximale */
+  padding: 2rem;
+  margin-left: -10PX;
+}
+.logo-container {
+  display: flex;
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  width: 100%; /* Assure que le conteneur prend toute la largeur */
+  margin-bottom: 1rem; /* Espace entre le logo et le formulaire */
+  margin-top: -2rem; /* Remonte le logo vers le haut */
+}
+
+.form-logo {
+  max-width: 150px; /* Ajustez la taille du logo */
+  height: auto; /* Conserve les proportions */
+}
+
+/* Animation corrigée */
+.fadeInDown {
+  animation: fadeInDown 1s;
+}
+
+@keyframes fadeInDown {
+  from {
+      opacity: 0;
+      transform: translateY(-20px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+* {
+    box-sizing: border-box;
+}
+html, body, #root, #defaultLayout, #guestLayout {
+    min-height: 100vh;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    color: #212121;
+    background-color: #f6f6f6;
+}
+
+input {
+    outline: 0;
+    background: #f4f4f49c;
+    width: 100%;
+    border: 2px solid #e6e6e6;
+    margin: 0 0 15px;
+    padding: 15px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: all 0.3s;
+    border-radius: 15px; /* Bords arrondis */
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Ombre grise */
+}
+
+input:focus {
+    border-color: #5d67b4;
+}
+
+.btn,
+.btn-add,
+.btn-edit,
+.btn-delete {
+    font-family: "Roboto", sans-serif;
+    outline: 0;
+    background:linear-gradient(135deg, #0f83e2, #a44ae9);
+    border: 0;
+    text-decoration: none;
+    padding: 15px;
+    color: #FFFFFF;
+    font-size: 16px;
+    -webkit-transition: all 0.3 ease;
+    border-radius: 15px; /* Bords arrondis */
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Ombre grise */
+    transition: all 0.3 ease;
+    cursor: pointer;
+}
+
+.btn-block {
+    width: 100%;
+}
+
+.btn-add,
+.btn-logout {
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    color: #212121;
+    transition: all 0.3s;
+    border-radius: 6px;
+}
+.btn-logout:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.btn:hover,
+.btn:active,
+.btn:focus {
+  background: linear-gradient(135deg, #571793, #1e90ff);
+  box-shadow: 0 10px 10px rgba(0, 0, 0, 0.2); /* Accentue l'ombre au survol */
+  transform: translateY(-2px); /* Légère élévation au survol */
+}
+
+.text-center {
+    text-align: center;
+}
+
+table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+}
+
+table > thead > tr > th {
+    text-align: left;
+    padding: 0.5rem 0.5rem;
+    background-color: #efefef;
+}
+
+table > tbody > tr > td {
+    padding: 0.5rem 0.5rem;
+    border-bottom: 1px solid #efefef;
+    white-space: nowrap;
+}
+
+.card {
+    background-color: #FFF;
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+/* Login/Signup forms*/
+
+.login-signup-form {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-signup-form .form {
+ 
+    width: 500px;
+    position: relative;
+    z-index: 1;
+    background: #8e8e9136;
+    max-width: 500px;
+    padding: 40px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 20px; /* Bords arrondis */
+    box-shadow: 0 10px 10px rgba(0, 0, 0, 0.1); /* Ombre grise */
+}
+
+.login-signup-form .title {
+    font-size: 20px;
+    margin-bottom: 1rem;
+    text-align: center;
+
+}
+
+.login-signup-form .form .message {
+  font-family: 'Montserrat', sans-serif; 
+    margin: 15px 0 0;
+    color: #b3b3b3;
+    font-size: 12px;
+    text-align: center;
+}
+
+.login-signup-form .form .message a {
+    color: #233378;
+    text-decoration: none;
+}
+
+/* Login/Signup form */
+
+
+#defaultLayout {
+    display: flex;
+}
+
+#defaultLayout aside {
+    width: 240px;
+    background-color: #1b0bcb;
+    padding: 1rem
+}
+
+#defaultLayout aside > a {
+    display: block;
+    padding: 0.75rem 1rem;
+    border-radius: 6px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+#defaultLayout aside > a:hover {
+    background-color: rgba(3, 3, 3, 0.2);
+}
+
+#defaultLayout .content {
+    flex: 1;
+}
+
+#defaultLayout header {
+    height: 80px;
+    padding: 2rem 3rem;
+    background-color: white;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#defaultLayout main {
+    padding: 2rem;
+}
+
+.animated {
+    -webkit-animation-duration: 0.3s;
+    animation-duration: 0.3s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fadeInDown {
+    -webkit-animation-name: fadeInDown;
+    animation-name: fadeInDown;
+}
+
+@keyframes fadeInDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.text-container {
+  position: absolute;
+  top: 5%; /* Positionne le texte en haut */
+  left: 5%; /* Positionne le texte à gauche */
+  color: #212121; /* Couleur du texte */
+  font-family: 'Poppins', sans-serif; /* Police */
+  font-size: 1.2rem; /* Taille du texte */
+  text-align: left; /* Aligne le texte à gauche */
+  z-index: 10; /* Assure que le texte est au-dessus des autres éléments */
+}
+
+.language-selection-container {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.language-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.language-option {
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid #e6e6e6; /* Bordure grise */
+    border-radius: 10px;
+    padding: 20px;
+    transition: transform 0.3s, border-color 0.3s;
+    background-color: white; /* Fond blanc */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+.language-option img {
+    width: 80px; /* Taille des drapeaux */
+    height: 80px;
+    object-fit: cover;
+    border-radius: 50%; /* Forme circulaire */
+    margin-bottom: 10px;
+}
+
+.language-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0;
+}
+
+.language-members {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.language-option:hover {
+    transform: scale(1.05); /* Agrandit légèrement au survol */
+    border-color: #007bff; /* Bordure bleue au survol */
+}
+
+.language-option.selected {
+    border-color: #28a745; /* Bordure verte pour l'élément sélectionné */
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2); /* Ombre verte pour l'élément sélectionné */
+}
+
+.level-selection-container {
+    text-align: center;
+    margin: 50px auto;
+}
+
+.level-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 colonnes */
+    gap: 20px; /* Espacement entre les cartes */
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.level-option {
+    cursor: pointer;
+    text-align: center;
+    border: 2px solid #e6e6e6; /* Bordure grise */
+    border-radius: 10px;
+    padding: 30px 20px; /* Augmente l'espace interne (padding) */
+    transition: transform 0.3s, border-color 0.3s;
+    background-color: white; /* Fond blanc */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+    height: 400px; /* Hauteur des cartes */
+    display: flex;
+    flex-direction: column; /* Aligne le contenu verticalement */
+    justify-content: flex-start; /* Aligne les éléments en haut */
+    align-items: center; /* Centre horizontalement */
+}
+
+.level-option img {
+    margin-bottom: 60px; /* Espace entre l'image et le texte */
+    width: 200px; /* Taille des images */
+    height: 200px;
+    object-fit: cover;
+}
+
+.level-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin: 5px 0;
+}
+
+.level-option:hover {
+    transform: scale(1.05); /* Agrandit légèrement au survol */
+    border-color: #007bff; /* Bordure bleue au survol */
+}
+
+.level-option.selected {
+    border-color: #28a745; /* Bordure verte pour l'élément sélectionné */
+    box-shadow: 0 4px 8px rgba(0, 128, 0, 0.2); /* Ombre verte pour l'élément sélectionné */
+}
+
+.btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #218838;
+}
+
+/* Main Content */
+.main-content {
+  margin-top: 100px; /* Ajoute un espace sous le header fixe */
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligne le contenu à gauche */
+}
+
+.hero-section {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; /* Aligne le contenu à gauche */
+  gap: 50px;
+  width: 100%;
+}
+
+.hero-text {
+  max-width: 600px;
+}
+
+.hero-text h1 {
+  font-size: 48px;
+  color: #333;
+}
+
+.hero-text h1 span {
+  color: #a44ae9a4;
+}
+
+.hero-text p {
+  font-size: 18px;
+  color: #555;
+  margin: 20px 0;
+}
+
+.hero-text .btn-contact {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #4c9af3, #af58ee);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.hero-text .btn-contact:hover {
+  background: linear-gradient(135deg, #4c9af3, #4b39ec);
+}
+
+.hero-image img {
+  width: 400px;
+  border-radius: 10px;
+}
+
+.hero-text-left {
+  margin-left: -50px; /* Ajustez cette valeur pour pousser davantage à gauche */
+  text-align: left; /* Aligne le texte à gauche */
+}
+
+/* Header styles */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 50px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%; /* Assure que le header prend toute la largeur */
+  position: fixed; /* Fixe le header en haut de la page */
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.header .logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.header .nav-links {
+  display: flex;
+  gap: 90px;
+}
+
+.header .nav-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  position: relative;
+  padding: 5px ;
+  transition: color 0.3s ease;
+}
+
+.header .nav-links a:hover {
+  background: linear-gradient(135deg, #844be0, #d596f2); /* Dégradé de couleurs */
+  -webkit-background-clip: text; /* Applique le dégradé au texte */
+  background-clip: text; /* Standard property for compatibility */
+  background-clip: text; /* Standard property for compatibility */
+  background-clip: text; /* Standard property for compatibility */
+  -webkit-text-fill-color: transparent; /* Rend le fond du texte transparent */
+}
+
+.header .nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(135deg, #844be0, #df91f7); /* Dégradé de couleurs */
+  transition: width 0.3s ease;
+}
+
+.header .nav-links a:hover::after {
+  width: 100%; /* Étend la ligne sous le lien au survol */
+}
+
+.header .nav-links a:active {
+  color: #0056b3; /* Change la couleur lorsqu'on clique */
+}
+
+.header .btn-signup {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header .btn-signup:hover {
+  background: linear-gradient(135deg, #4c9af3, #4b39ec);
+}
+
+.header .btn-logout {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #4c9af3, #af58ee);
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.header .btn-logout:hover {
+  background: linear-gradient(135deg, #4b81e0, #8eb6ff); 
+  transform: scale(1.05); /* Légère mise en avant au survol */
+}
+
+/* Courses Section */
+.courses-section {
+  padding: 50px;
+  text-align: center;
+}
+
+.courses-section h2 {
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.courses {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap; /* Permet aux cartes de s'adapter sur plusieurs lignes */
+}
+
+.course-card {
+  display: flex; /* Active le flexbox */
+  justify-content: center; /* Centre horizontalement */
+  align-items: center; /* Centre verticalement */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  font-size: 22px;
+  color: #fff; /* Texte blanc */
+  cursor: pointer;
+  width: 250px; /* Largeur fixe pour les cartes */
+  height: 190px; /* Hauteur fixe pour les cartes */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  font-family:Forte;
+}
+
+/* Dégradés pour chaque carte */
+.course-card:nth-child(1) {
+  background: linear-gradient(135deg, #4b81e0, #8eb6ff); /* Rouge clair vers rose */
+}
+
+.course-card:nth-child(2) {
+  background: linear-gradient(135deg, #4c9af3, #4b39ec); /* Bleu clair vers bleu pastel */
+}
+
+.course-card:nth-child(3) {
+  background: linear-gradient(135deg, #505bff,  #7079f3); /* Vert clair vers vert pastel */
+}
+
+.course-card:nth-child(4) {
+  background: linear-gradient(135deg, #8534ab, #ee8eff); /* Orange clair vers jaune pastel */
+}
+
+.course-card:hover {
+  transform: translateY(-10px); /* Légère élévation au survol */
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2); /* Accentuation de l'ombre */
+}
+
+.btn-browse {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-browse:hover {
+  background-color: #0056b3;
+  transform: scale(1.05); /* Légère mise en avant au survol */
+}
+
+/* Gradient Text */
+.gradient-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(to right, #04a8d9, #b325e3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+.access-lesson-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.access-lesson-container h2 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+}
+
+.lessons-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.lesson-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 15px;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-image {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.lesson-card h3 {
+  margin: 10px 0;
+  font-size: 1.2em;
+  color: #444;
+}
+
+.lesson-details {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+  font-size: 0.9em;
+  color: #666;
+}
+
+.lesson-level {
+  background-color: #f0f0f0;
+  padding: 5px;
+  border-radius: 5px;
+  display: inline-block;
+  margin: 5px 0;
+  font-size: 0.8em;
+}
+
+.lesson-price {
+  font-weight: bold;
+  margin: 10px 0;
+  color: #333;
+}
+
+.enroll-button {
+  background: linear-gradient(135deg, #844be0, #b75ae2);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.9em;
+}
+
+.enroll-button:hover {
+  background: linear-gradient(135deg, #8534ab, #ee8eff);
+}
+
+/* Ajoutez ceci à votre fichier AccessLesson.css */
+
+.lesson-rating {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin: 10px 0;
+}
+
+.stars {
+  display: flex;
+}
+
+.star-filled {
+  color: #FFD700; /* Jaune pour les étoiles pleines */
+  font-size: 16px;
+}
+
+.star-empty {
+  color: #CCCCCC; /* Gris pour les étoiles vides */
+  font-size: 16px;
+}
+
+.rating-text {
+  color: #1E90FF; /* Bleu pour le texte de notation */
+  font-weight: bold;
+  margin-left: 5px;
+}
+
+.lesson-meta {
+  display: flex;
+  justify-content: space-between;
+  margin: 10px 0;
+}
+
+.lesson-level {
+  background-color: #f0f0f0;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.8em;
+}
+.lesson-time {
+  position: absolute;
+  top:-20px;
+  left: -20px;
+  background-color: #007bff;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.time-icon {
+  font-size: 16px;
+}
+
+.lesson-card {
+  position: relative; 
+}
+
+.submit-btn {
+  display: block;
+  width: 100%;
+  padding: 12px;
+  background: #2196f3;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.2s;
+}
+
+.submit-btn:hover {
+  background: #0d8bf2;
+}
+
+.submit-btn:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+
+.score-display {
+  margin-top: 20px;
+  padding: 15px;
+  background: #e8f5e9;
+  border-radius: 4px;
+  color: #2e7d32;
+}
+
+/* Conteneur principal */
+.bibliotheque-container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Titre principal */
+.gradient-text {
+  font-size: 2.5rem;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(to right, #04a8d9, #b325e3);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 20px;
+}
+
+/* Conteneur des livres */
+.livres-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Carte de chaque livre */
+.livre-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.livre-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Conteneur de l'image */
+.livre-image-container {
+  flex: 1;
+  text-align: center;
+}
+
+.story-image {
+  width: 100px;
+  height: auto;
+  border-radius: 8px;
+  margin-right: 15px;
+}
+
+/* Détails du livre */
+.livre-details {
+  flex: 2;
+  text-align: left;
+}
+
+.livre-titre-gradient {
+  font-size: 1.8rem;
+  font-weight: bold;
+  background: linear-gradient(135deg, #844be0, #b75ae2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 10px;
+}
+
+.livre-description {
+  font-size: 1rem;
+  color: #555555;
+  margin-bottom: 10px;
+}
+
+.livre-vues {
+  font-size: 0.9rem;
+  color: #999999;
+  margin-bottom: 10px;
+}
+
+/* Bouton pour voir les détails */
+.btn-details {
+  padding: 8px 15px;
+  background: linear-gradient(135deg, #844be0, #df91f7);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-details:hover {
+  background-color: #037ca1;
+}
+
+/* Message pour aucun livre */
+.aucun-livre {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999999;
+}
+
+/* Conteneur de l'image */
+.image-container {
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Image pleine largeur */
+.story-image-full {
+  width: 20%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Navbar styles */
+.navbar {
+  background-color: #333;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.navbar-list {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.navbar-item:hover {
+  color: #00bcd4;
+}
+
+/* Other styles */
+.bibliotheque-container {
+  padding: 20px;
+}
+
+.livres-container, .podcasts-container {
+  margin-top: 20px;
+}
+
+.livre-card, .podcast-card {
+  margin: 10px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.livre-card:hover, .podcast-card:hover {
+  transform: scale(1.05);
+}
+
+/* Conteneur principal de la page des podcasts */
+.podcasts-page-container {
+  padding: 20px;
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 20px auto;
+  max-width: 1200px;
+}
+
+/* Grille des podcasts */
+.podcasts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Carte de chaque podcast */
+.podcast-card-modern {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+.podcast-card-modern:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Titre du podcast */
+.podcast-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, #cc4be0, #3c318f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+}
+
+/* Description du podcast */
+.podcast-description {
+  font-size: 1rem;
+  color: #555555;
+  margin-bottom: 15px;
+  line-height: 1.5;
+}
+
+/* Lecteur audio */
+.podcast-audio {
+  width: 100%;
+  outline: none;
+  margin-top: 10px;
+  border-radius:40px;
+  background-color: #f0f0f0;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.716);
+  transition: background-color 0.3s ease;
+  
+}
+
+/* Message pour aucun podcast */
+.aucun-podcast {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999999;
+}
+
+/* Liste des podcasts */
+.podcasts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+
+/* Ligne de chaque podcast */
+.podcast-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.podcast-row:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Informations sur le podcast */
+.podcast-info {
+  flex: 2;
+  margin-right: 20px;
+}
+
+.podcast-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.podcast-description {
+  font-size: 1rem;
+  color: #555555;
+  margin-bottom: 10px;
+}
+
+.podcast-stats {
+  display: flex;
+  gap: 15px;
+  font-size: 0.9rem;
+  color: #777777;
+}
+
+.podcast-listens, .podcast-likes {
+  display: inline-block;
+}
+
+/* Lecteur audio */
+.podcast-audio {
+  flex: 1;
+  max-width: 300px;
+  outline: none;
+}
+
+/* Message pour aucun podcast */
+.aucun-podcast {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #999999;
+}
