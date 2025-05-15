@@ -23,8 +23,8 @@ export default function DefaultLayout() {
         <nav className="nav-links">
           <a href="/">Accueil</a>
           <a href="/access-lesson">Leçons</a> {/* Lien vers la nouvelle page */}
-          <a href="#">Progression</a>
-          <a href="#">Mes tests</a>
+          <a href="/mes-statistiques">Progression</a>
+          <a href="/mes-tests">Mes tests</a>
           <a href="/tous-les-livres">bibliothèque</a>
          
         </nav>

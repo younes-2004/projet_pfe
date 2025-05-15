@@ -14,6 +14,7 @@ import TousLesLivres from "./TousLesLivres.jsx"; // Import de TousLesLivres
 import Podcasts from "./Podcasts.jsx"; // Import de Podcasts
 import Quiz from "./Quiz.jsx"; // Import de Quiz
 import UserStats from "./UserStats.jsx"; // Importez le composant UserStats
+import TestsPage from "./TestsPage.jsx"; // Import de TestsPage 
 
 const router = createBrowserRouter([
     {
@@ -73,6 +74,11 @@ const router = createBrowserRouter([
   {
     path: '/mes-statistiques', // Ajoutez cette nouvelle route
     element: <UserStats />,
+},
+
+{
+  path: '/mes-tests',
+  element: <TestsPage />
 },
 
 

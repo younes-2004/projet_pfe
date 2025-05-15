@@ -1,10 +1,13 @@
-import React from "react";
-import { Navigate, Outlet, useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import { Navigate } from 'react-router-dom';
 import "../index.css"; // Assurez-vous que le chemin est correct
 import { FaStar } from "react-icons/fa"; // Pour les étoiles
 import { useStateContext } from "../contexts/contextprovider";
 
 const AccessLesson = () => {
+  // État pour suivre le thème sélectionné (pour une utilisation future)
+  const [selectedTheme, setSelectedTheme] = useState(null);
+  
   const lessons = [
     {
       title: "Faire connaissance",
@@ -61,8 +64,8 @@ const AccessLesson = () => {
       time: "25m",
     },
   ];
+  
   const { user, token, onLogout } = useStateContext();
-  const navigate = useNavigate();
 
   if (!token) {
     return <Navigate to='/login' replace />;
@@ -73,10 +76,14 @@ const AccessLesson = () => {
     onLogout();
   };
   
-  // Ajouter cette fonction pour naviguer vers le quiz
+  // Nouvelle fonction qui ne fait que stocker le thème sélectionné
   const handleLessonClick = (lessonTitle) => {
-    // Vous pouvez utiliser le titre ou un ID pour naviguer vers le quiz correspondant
-    navigate(`/quiz/${encodeURIComponent(lessonTitle)}`);
+    console.log(`Thème sélectionné: ${lessonTitle}`);
+    setSelectedTheme(lessonTitle);
+    
+    // Ici, vous pouvez ajouter votre logique future
+    // Par exemple, afficher un modal, charger du contenu spécifique, etc.
+    // Mais pour l'instant, nous ne faisons rien de spécial
   };
 
   return (
@@ -88,7 +95,7 @@ const AccessLesson = () => {
           <a href="/">Accueil</a>
           <a href="/access-lesson">Leçons</a>
           <a href="/mes-statistiques">Progression</a>
-          <a href="#">Mes tests</a>
+          <a href="/mes-tests">Mes tests</a>
           <a href="/tous-les-livres">Bibliothèque</a>
         </nav>
         <button 
@@ -114,6 +121,7 @@ const AccessLesson = () => {
         </div>
       </section>
 
+    
       {/* Lessons Grid */}
       <div className="lessons-grid">
         {lessons.map((lesson, index) => (
