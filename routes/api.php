@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizResultController;
+use App\Http\Controllers\LessonContentController;
 
 
 
@@ -72,6 +73,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/lessons', [LessonController::class, 'store']);
     Route::put('/lessons/{id}', [LessonController::class, 'update']);
     Route::delete('/lessons/{id}', [LessonController::class, 'destroy']);
+    Route::get('/lessons/{lessonId}/contents', [LessonContentController::class, 'index']);
+Route::post('/lessons/{lessonId}/contents', [LessonContentController::class, 'store']);
+Route::get('/lesson-contents/{id}', [LessonContentController::class, 'show']);
+Route::put('/lesson-contents/{id}', [LessonContentController::class, 'update']);
+Route::delete('/lesson-contents/{id}', [LessonContentController::class, 'destroy']);
     
     Route::post('/quizzes', [QuizController::class, 'store']);
     Route::put('/quizzes/{id}', [QuizController::class, 'update']);

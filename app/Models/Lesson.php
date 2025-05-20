@@ -23,4 +23,11 @@ class Lesson extends Model
     {
         return $this->hasMany(Quiz::class);
     }
+     /**
+     * Relation avec les contenus de leçon de ce thème
+     */
+    public function contents()
+    {
+        return $this->hasMany(LessonContent::class)->orderBy('order');
+    }
 }
