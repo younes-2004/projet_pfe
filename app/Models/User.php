@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -11,7 +10,9 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
-protected $table = 'users';
+    
+    protected $table = 'users';
+    
     /**
      * The attributes that are mass assignable.
      *
@@ -21,6 +22,9 @@ protected $table = 'users';
         'name',
         'email',
         'password',
+        'is_admin',
+        'languechoisie',
+        'niveauchoisie',
     ];
 
     /**
@@ -40,10 +44,22 @@ protected $table = 'users';
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'is_admin' => 'boolean',
     ];
-    // Ajoutez cette relation au modèle User
-public function quizResults()
-{
-    return $this->hasMany(QuizResult::class);
-}
+    
+    /**
+     * Vérifie si l'utilisateur est un administrateur
+     *
+     * @return bool
+     */
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
+    
+    // Relation avec les résultats de quiz
+    public function quizResults()
+    {
+        return $this->hasMany(QuizResult::class);
+    }
 }

@@ -15,6 +15,22 @@ import Podcasts from "./Podcasts.jsx"; // Import de Podcasts
 import Quiz from "./Quiz.jsx"; // Import de Quiz
 import UserStats from "./UserStats.jsx"; // Importez le composant UserStats
 import TestsPage from "./TestsPage.jsx"; // Import de TestsPage 
+import UserProfile from "./UserProfile.jsx"; // Import de UserProfile
+import AdminLayout from "../Components/layouts/AdminLayout.jsx"; // Import de AdminLayout
+import AdminDashboardPage from "./pages/AdminDashboardPage.jsx"; // Import de AdminDashboardPage
+import AdminUsersPage from "./pages/AdminUsersPage.jsx"; // Import de AdminUsersPage
+import AdminLessonPerformancePage from "./pages/AdminLessonPerformancePage.jsx"; // Import de AdminLessonPerformancePage
+
+
+
+
+
+
+
+
+
+
+
 
 const router = createBrowserRouter([
     {
@@ -80,7 +96,33 @@ const router = createBrowserRouter([
   path: '/mes-tests',
   element: <TestsPage />
 },
+{
+  path: "/mon-profil", // Nouvelle route pour le profil utilisateur
+  element: <UserProfile />,
+},
 
+
+{
+  path: "/admin/dashboard",
+  element: <AdminLayout><AdminDashboardPage /></AdminLayout>,
+},
+{
+  path: "/admin/users",
+  element: <AdminLayout><AdminUsersPage /></AdminLayout>,
+},
+{
+  path: "/admin/lesson/:id/performance",
+  element: <AdminLayout><AdminLessonPerformancePage /></AdminLayout>,
+},
+{
+  path: "/admin",
+  element: <AdminLayout />, // Nouvelle route pour le tableau de bord administrateur
+}
+,
+{
+path: "/admin/users/:id",
+element: <AdminLayout><AdminUsersPage /></AdminLayout>, // Nouvelle route pour la page des utilisateurs administrateurs
+},
 
   
 ]);

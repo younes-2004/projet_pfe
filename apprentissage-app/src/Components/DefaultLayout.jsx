@@ -26,6 +26,8 @@ export default function DefaultLayout() {
           <a href="/mes-statistiques">Progression</a>
           <a href="/mes-tests">Mes tests</a>
           <a href="/tous-les-livres">bibliothèque</a>
+          <a href="/mon-profil">Mon profil</a>
+         
          
         </nav>
         <button 

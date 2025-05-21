@@ -23,17 +23,17 @@ export default function LanguageSelection() {
     };
 
     const languages = [
-        { name: "Anglais", image: "/images/flags/english.png", members: "16,1 M" },
-        { name: "Francais", image: "/images/flags/france.png", members: "15,4 M" },
-        { name: "Espagnol", image: "/images/flags/espagnol.png", members: "5 M" },
-        { name: "Italien", image: "/images/flags/italia.png", members: "2,38 M" },
-        { name: "Allemand", image: "/images/flags/allmend.png", members: "1,82 M" },
-        { name: "Portugais", image: "/images/flags/portugal.png", members: "1,09 M" },
-        { name: "Japonais", image: "/images/flags/japan.png", members: "63,1 k" },
-        { name: "Chinois", image: "/images/flags/china.png", members: "45,9 k" },
-        { name: "Coréen", image: "/images/flags/korea.png", members: "27,4 k" },
-        { name: "Turc", image: "/images/flags/Turquie.png", members: "15,4 M" },
-        { name: "Indien", image: "/images/flags/india.png", members: "15,4 M" },
+        { name: "Anglais", image: "/images/flags/english.png", members: "0" },
+        { name: "Francais", image: "/images/flags/france.png", members: "3" },
+        { name: "Espagnol", image: "/images/flags/espagnol.png", members: "0 " },
+        { name: "Italien", image: "/images/flags/italia.png", members: "0" },
+        { name: "Allemand", image: "/images/flags/allmend.png", members: "0" },
+        { name: "Portugais", image: "/images/flags/portugal.png", members: "0" },
+        { name: "Japonais", image: "/images/flags/japan.png", members: "0" },
+        { name: "Chinois", image: "/images/flags/china.png", members: "0" },
+        { name: "Coréen", image: "/images/flags/korea.png", members: "0" },
+        { name: "Turc", image: "/images/flags/Turquie.png", members: "0" },
+        { name: "Indien", image: "/images/flags/india.png", members: "0" },
        
 
        ,

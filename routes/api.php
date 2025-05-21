@@ -12,6 +12,7 @@ use App\Http\Controllers\LessonContentController;
 
 
 
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,7 +31,25 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    Route::middleware('auth:sanctum')->group(function () {
+        Route::get('/user', [AuthController::class, 'getUser']);
+        Route::put('/user/profile', [AuthController::class, 'updateProfile']);
+        Route::put('/user/password', [AuthController::class, 'updatePassword']);
+        Route::put('/user/language', [AuthController::class, 'updateLanguage']);
+    });
+// Ajoutez ces routes à votre fichier routes/api.php
 
+// Routes d'administration - protégées par les middleware auth et admin
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard']);
+    Route::get('/users', [App\Http\Controllers\AdminController::class, 'userDetails']);
+    Route::get('/lesson/{id}/performance', [App\Http\Controllers\AdminController::class, 'lessonPerformance']);
+});
+   // Dans routes/api.php
+// Route pour obtenir les informations de l'utilisateur connecté
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
     Route::apiResource('/users',UserController::class);
 
     Route::post('/update-language', function (Request $request) {
