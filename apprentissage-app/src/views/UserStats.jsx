@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useStateContext } from "../contexts/contextprovider"; // CORRECTION: C majuscule dans le nom du fichier
+import { useStateContext } from "../contexts/contextprovider"; // Correction du chemin d'import
 import { 
   FaTrophy, 
   FaStar, 

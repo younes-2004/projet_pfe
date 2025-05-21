@@ -1,6 +1,7 @@
 import React from 'react';
 import '../index.css';
 import { useStateContext } from "../contexts/contextprovider";
+import { Navigate, useNavigate } from 'react-router-dom'; // Ajout de l'import Navigate
 
 const Podcasts = () => {
   const { user, token, onLogout } = useStateContext();

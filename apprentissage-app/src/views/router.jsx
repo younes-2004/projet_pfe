@@ -16,11 +16,10 @@ import Quiz from "./Quiz.jsx"; // Import de Quiz
 import UserStats from "./UserStats.jsx"; // Importez le composant UserStats
 import TestsPage from "./TestsPage.jsx"; // Import de TestsPage 
 import UserProfile from "./UserProfile.jsx"; // Import de UserProfile
-import AdminLayout from "../Components/layouts/AdminLayout.jsx"; // Import de AdminLayout
-import AdminDashboardPage from "./pages/AdminDashboardPage.jsx"; // Import de AdminDashboardPage
-import AdminUsersPage from "./pages/AdminUsersPage.jsx"; // Import de AdminUsersPage
-import AdminLessonPerformancePage from "./pages/AdminLessonPerformancePage.jsx"; // Import de AdminLessonPerformancePage
-
+import AdminLayout from "../Components/layouts/AdminLayout.jsx";
+import AdminDashboardPage from "./pages/AdminDashboardPage.jsx";
+import AdminUsersPage from "./pages/AdminUsersPage.jsx";
+import AdminLessonPerformancePage from "./pages/AdminLessonPerformancePage.jsx";
 
 
 
@@ -116,14 +115,12 @@ const router = createBrowserRouter([
 },
 {
   path: "/admin",
-  element: <AdminLayout />, // Nouvelle route pour le tableau de bord administrateur
-}
-,
-{
-path: "/admin/users/:id",
-element: <AdminLayout><AdminUsersPage /></AdminLayout>, // Nouvelle route pour la page des utilisateurs administrateurs
+  element: <AdminLayout />,
 },
-
+{
+  path: "/admin/users/:id",
+  element: <AdminLayout><AdminUsersPage /></AdminLayout>,
+},
   
 ]);
 

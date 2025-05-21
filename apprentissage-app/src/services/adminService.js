@@ -1,7 +1,11 @@
-import axiosClient from "../axiosClient";
+// src/services/adminService.js
+import axiosClient from '../axiosClient';
 
-export const adminService = {
-  // Récupérer les données pour le tableau de bord
+const adminService = {
+  /**
+   * Récupère les statistiques pour le tableau de bord administrateur
+   * @returns {Promise} Promesse avec les données du tableau de bord
+   */
   getDashboardStats: async () => {
     try {
       const response = await axiosClient.get('/admin/dashboard');
@@ -11,12 +15,20 @@ export const adminService = {
       throw error;
     }
   },
-  
-  // Récupérer la liste des utilisateurs avec pagination
+
+  /**
+   * Récupère la liste des utilisateurs avec pagination
+   * @param {number} page - Page courante
+   * @param {string} search - Terme de recherche (optionnel)
+   * @returns {Promise} Promesse avec les données utilisateurs paginées
+   */
   getUsers: async (page = 1, search = '') => {
     try {
       const response = await axiosClient.get('/admin/users', {
-        params: { page, search }
+        params: {
+          page,
+          search
+        }
       });
       return response.data;
     } catch (error) {
@@ -24,11 +36,16 @@ export const adminService = {
       throw error;
     }
   },
-  
-  // Récupérer les détails de performance d'une leçon spécifique
+
+  /**
+   * Récupère les performances d'une leçon spécifique
+   * @param {number} lessonId - ID de la leçon
+   * @param {number} page - Page courante
+   * @returns {Promise} Promesse avec les données de performance
+   */
   getLessonPerformance: async (lessonId, page = 1) => {
     try {
-      const response = await axiosClient.get(`/admin/lesson/${lessonId}/performance`, {
+      const response = await axiosClient.get(`/admin/lessons/${lessonId}/performance`, {
         params: { page }
       });
       return response.data;

@@ -9,6 +9,8 @@ use App\Http\Controllers\LessonController;
 use App\Http\Controllers\QuizController;
 use App\Http\Controllers\QuizResultController;
 use App\Http\Controllers\LessonContentController;
+use App\Http\Controllers\AdminController; // Utilisez le contrôleur existant
+
 
 
 
@@ -39,12 +41,15 @@ Route::middleware('auth:sanctum')->group(function() {
     });
 // Ajoutez ces routes à votre fichier routes/api.php
 
-// Routes d'administration - protégées par les middleware auth et admin
+// routes/api.php - Ajoutez ces routes
+
+// Routes d'administration
 Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\AdminController::class, 'dashboard']);
-    Route::get('/users', [App\Http\Controllers\AdminController::class, 'userDetails']);
-    Route::get('/lesson/{id}/performance', [App\Http\Controllers\AdminController::class, 'lessonPerformance']);
+    Route::get('/dashboard', [App\Http\Controllers\Api\AdminController::class, 'getDashboardStats']);
+    Route::get('/users', [App\Http\Controllers\Api\AdminController::class, 'getUsers']);
+    Route::get('/lessons/{id}/performance', [App\Http\Controllers\Api\AdminController::class, 'getLessonPerformance']);
 });
+
    // Dans routes/api.php
 // Route pour obtenir les informations de l'utilisateur connecté
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

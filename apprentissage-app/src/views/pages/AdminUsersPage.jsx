@@ -1,5 +1,5 @@
 import React from 'react';
-import AdminUsers from '../../Components/admin/UserDetails';
+import UserDetails from '../../Components/admin/UserDetails';
 
 const AdminUsersPage = () => {
   return <UserDetails />;

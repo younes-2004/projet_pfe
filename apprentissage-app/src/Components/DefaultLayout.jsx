@@ -28,7 +28,6 @@ export default function DefaultLayout() {
           <a href="/tous-les-livres">bibliothèque</a>
           <a href="/mon-profil">Mon profil</a>
          
-         
         </nav>
         <button 
           className="btn-logout" 
