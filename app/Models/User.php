@@ -54,12 +54,12 @@ class User extends Authenticatable
      */
     public function isAdmin()
     {
-        return $this->is_admin;
+        return $this->is_admin==1;
     }
     
-    // Relation avec les résultats de quiz
-    public function quizResults()
-    {
-        return $this->hasMany(QuizResult::class);
-    }
+    // In User.php model
+public function quizResults()
+{
+    return $this->hasMany(QuizResult::class);
+}
 }

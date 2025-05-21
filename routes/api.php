@@ -11,10 +11,6 @@ use App\Http\Controllers\QuizResultController;
 use App\Http\Controllers\LessonContentController;
 use App\Http\Controllers\AdminController; // Utilisez le contrôleur existant
 
-
-
-
-
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -33,28 +29,28 @@ Route::middleware('auth:sanctum')->group(function() {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
+    
     Route::middleware('auth:sanctum')->group(function () {
         Route::get('/user', [AuthController::class, 'getUser']);
         Route::put('/user/profile', [AuthController::class, 'updateProfile']);
         Route::put('/user/password', [AuthController::class, 'updatePassword']);
         Route::put('/user/language', [AuthController::class, 'updateLanguage']);
     });
-// Ajoutez ces routes à votre fichier routes/api.php
 
-// routes/api.php - Ajoutez ces routes
+    // Routes d'administration - CORRIGÉ
+    Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+        Route::get('/dashboard', [AdminController::class, 'getDashboardStats']);
+        Route::get('/users', [AdminController::class, 'getUsers']);
+        Route::get('/lessons/{id}/performance', [AdminController::class, 'getLessonPerformance']);
+    });
+    Route::get('/admin/test', [AdminController::class, 'test']);
 
-// Routes d'administration
-Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
-    Route::get('/dashboard', [App\Http\Controllers\Api\AdminController::class, 'getDashboardStats']);
-    Route::get('/users', [App\Http\Controllers\Api\AdminController::class, 'getUsers']);
-    Route::get('/lessons/{id}/performance', [App\Http\Controllers\Api\AdminController::class, 'getLessonPerformance']);
-});
-
-   // Dans routes/api.php
-// Route pour obtenir les informations de l'utilisateur connecté
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+    // Dans routes/api.php
+    // Route pour obtenir les informations de l'utilisateur connecté
+    Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+        return $request->user();
+    });
+    
     Route::apiResource('/users',UserController::class);
 
     Route::post('/update-language', function (Request $request) {
@@ -82,8 +78,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     });
 });
 
-
 Route::post('register',[AuthController::class,'register']);
+
 // Routes protégées par authentification
 Route::middleware('auth:sanctum')->group(function () {
     // Routes pour les leçons
@@ -97,16 +93,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/lessons', [LessonController::class, 'store']);
     Route::put('/lessons/{id}', [LessonController::class, 'update']);
     Route::delete('/lessons/{id}', [LessonController::class, 'destroy']);
+    
     Route::get('/lessons/{lessonId}/contents', [LessonContentController::class, 'index']);
-Route::post('/lessons/{lessonId}/contents', [LessonContentController::class, 'store']);
-Route::get('/lesson-contents/{id}', [LessonContentController::class, 'show']);
-Route::put('/lesson-contents/{id}', [LessonContentController::class, 'update']);
-Route::delete('/lesson-contents/{id}', [LessonContentController::class, 'destroy']);
+    Route::post('/lessons/{lessonId}/contents', [LessonContentController::class, 'store']);
+    Route::get('/lesson-contents/{id}', [LessonContentController::class, 'show']);
+    Route::put('/lesson-contents/{id}', [LessonContentController::class, 'update']);
+    Route::delete('/lesson-contents/{id}', [LessonContentController::class, 'destroy']);
     
     Route::post('/quizzes', [QuizController::class, 'store']);
     Route::put('/quizzes/{id}', [QuizController::class, 'update']);
     Route::delete('/quizzes/{id}', [QuizController::class, 'destroy']);
 });
+
 // routes/api.php
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/quiz-results', [QuizResultController::class, 'store']);
@@ -114,4 +112,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/quiz-results', [QuizResultController::class, 'getUserResults']);
     Route::get('/user-stats', [QuizResultController::class, 'getUserStats']);
 });
+
 Route::get('/bibliotheque', [BibliothequeController::class, 'index']); // Récupérer tous les livres

@@ -45,14 +45,30 @@ const Dashboard = () => {
   }
 
   if (!dashboardData) {
-    return null;
+    return (
+      <div className="alert alert-warning" role="alert">
+        Aucune donnée disponible pour le tableau de bord.
+      </div>
+    );
   }
+
+  // Ensure all data properties exist with default values
+  const {
+    totalUsers = 0,
+    activeUsers = 0,
+    languageStats = [],
+    levelStats = [],
+    popularLessons = [], 
+    lessonScores = [],
+    recentActivity = [],
+    userRegistrations = []
+  } = dashboardData;
 
   // Préparer les données pour le graphique à secteurs (languages)
   const languageChartData = {
-    labels: dashboardData.languageStats.map(item => item.languechoisie),
+    labels: languageStats?.map(item => item.languechoisie) || [],
     datasets: [{
-      data: dashboardData.languageStats.map(item => item.total),
+      data: languageStats?.map(item => item.total) || [],
       backgroundColor: [
         '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', 
         '#FF9F40', '#FF6384', '#C9CBCF', '#7BC225', '#B56DB4'
@@ -62,30 +78,30 @@ const Dashboard = () => {
 
   // Préparer les données pour le graphique à barres (levels)
   const levelChartData = {
-    labels: dashboardData.levelStats.map(item => item.niveauchoisie),
+    labels: levelStats?.map(item => item.niveauchoisie) || [],
     datasets: [{
       label: 'Nombre d\'utilisateurs',
-      data: dashboardData.levelStats.map(item => item.total),
+      data: levelStats?.map(item => item.total) || [],
       backgroundColor: '#36A2EB'
     }]
   };
 
   // Préparer les données pour le graphique de performance par thème
   const lessonPerformanceData = {
-    labels: dashboardData.lessonScores.map(item => item.title),
+    labels: lessonScores?.map(item => item.title) || [],
     datasets: [{
       label: 'Score moyen (%)',
-      data: dashboardData.lessonScores.map(item => item.average_score),
+      data: lessonScores?.map(item => item.average_score) || [],
       backgroundColor: '#4BC0C0'
     }]
   };
 
   // Préparer les données pour le graphique d'activité récente
   const recentActivityData = {
-    labels: dashboardData.recentActivity.map(item => item.date),
+    labels: recentActivity?.map(item => item.date) || [],
     datasets: [{
       label: 'Nombre de quiz complétés',
-      data: dashboardData.recentActivity.map(item => item.count),
+      data: recentActivity?.map(item => item.count) || [],
       fill: false,
       borderColor: '#FF6384',
       tension: 0.1
@@ -94,10 +110,10 @@ const Dashboard = () => {
 
   // Préparer les données pour le graphique d'inscriptions
   const userRegistrationData = {
-    labels: dashboardData.userRegistrations.map(item => item.month),
+    labels: userRegistrations?.map(item => item.month) || [],
     datasets: [{
       label: 'Nouvelles inscriptions',
-      data: dashboardData.userRegistrations.map(item => item.count),
+      data: userRegistrations?.map(item => item.count) || [],
       backgroundColor: '#9966FF'
     }]
   };
@@ -111,29 +127,29 @@ const Dashboard = () => {
         <div className="col-md-3">
           <StatCard 
             title="Utilisateurs totaux" 
-            value={dashboardData.totalUsers}
+            value={totalUsers || 0}
             color="primary" 
           />
         </div>
         <div className="col-md-3">
           <StatCard 
             title="Utilisateurs actifs" 
-            value={dashboardData.activeUsers}
-            subtitle={`${Math.round((dashboardData.activeUsers / Math.max(1, dashboardData.totalUsers)) * 100)}% du total`}
+            value={activeUsers || 0}
+            subtitle={`${Math.round(((activeUsers || 0) / Math.max(1, totalUsers || 1)) * 100)}% du total`}
             color="success" 
           />
         </div>
         <div className="col-md-3">
           <StatCard 
             title="Langues sélectionnées" 
-            value={dashboardData.languageStats.length}
+            value={languageStats?.length || 0}
             color="info" 
           />
         </div>
         <div className="col-md-3">
           <StatCard 
             title="Niveaux disponibles" 
-            value={dashboardData.levelStats.length}
+            value={levelStats?.length || 0}
             color="warning" 
           />
         </div>
@@ -147,18 +163,22 @@ const Dashboard = () => {
               <h5>Distribution des langues</h5>
             </div>
             <div className="card-body">
-              <ChartComponent 
-                type="pie" 
-                data={languageChartData} 
-                title="Langues sélectionnées par les utilisateurs"
-                options={{
-                  plugins: {
-                    legend: {
-                      position: 'right',
+              {languageStats?.length > 0 ? (
+                <ChartComponent 
+                  type="pie" 
+                  data={languageChartData} 
+                  title="Langues sélectionnées par les utilisateurs"
+                  options={{
+                    plugins: {
+                      legend: {
+                        position: 'right',
+                      }
                     }
-                  }
-                }}
-              />
+                  }}
+                />
+              ) : (
+                <p className="text-center text-muted">Aucune donnée disponible sur les langues</p>
+              )}
             </div>
           </div>
         </div>
@@ -168,23 +188,27 @@ const Dashboard = () => {
               <h5>Distribution des niveaux</h5>
             </div>
             <div className="card-body">
-              <ChartComponent 
-                type="bar" 
-                data={levelChartData} 
-                title="Niveaux choisis par les utilisateurs"
-                options={{
-                  plugins: {
-                    legend: {
-                      display: false
+              {levelStats?.length > 0 ? (
+                <ChartComponent 
+                  type="bar" 
+                  data={levelChartData} 
+                  title="Niveaux choisis par les utilisateurs"
+                  options={{
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
                     }
-                  },
-                  scales: {
-                    y: {
-                      beginAtZero: true
-                    }
-                  }
-                }}
-              />
+                  }}
+                />
+              ) : (
+                <p className="text-center text-muted">Aucune donnée disponible sur les niveaux</p>
+              )}
             </div>
           </div>
         </div>
@@ -208,8 +232,8 @@ const Dashboard = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {dashboardData.popularLessons.length > 0 ? (
-                      dashboardData.popularLessons.map((lesson) => (
+                    {popularLessons?.length > 0 ? (
+                      popularLessons.map((lesson) => (
                         <tr key={lesson.id}>
                           <td>{lesson.title}</td>
                           <td>{lesson.quizzes_count}</td>
@@ -240,25 +264,29 @@ const Dashboard = () => {
               <h5>Performance par thème</h5>
             </div>
             <div className="card-body">
-              <ChartComponent 
-                type="bar" 
-                data={lessonPerformanceData} 
-                title="Score moyen par thème"
-                options={{
-                  indexAxis: 'y',
-                  plugins: {
-                    legend: {
-                      display: false
+              {lessonScores?.length > 0 ? (
+                <ChartComponent 
+                  type="bar" 
+                  data={lessonPerformanceData} 
+                  title="Score moyen par thème"
+                  options={{
+                    indexAxis: 'y',
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
+                    },
+                    scales: {
+                      x: {
+                        beginAtZero: true,
+                        max: 100
+                      }
                     }
-                  },
-                  scales: {
-                    x: {
-                      beginAtZero: true,
-                      max: 100
-                    }
-                  }
-                }}
-              />
+                  }}
+                />
+              ) : (
+                <p className="text-center text-muted">Aucune donnée de performance disponible</p>
+              )}
             </div>
           </div>
         </div>
@@ -272,18 +300,22 @@ const Dashboard = () => {
               <h5>Activité récente (30 derniers jours)</h5>
             </div>
             <div className="card-body">
-              <ChartComponent 
-                type="line" 
-                data={recentActivityData} 
-                title="Activité quotidienne"
-                options={{
-                  scales: {
-                    y: {
-                      beginAtZero: true
+              {recentActivity?.length > 0 ? (
+                <ChartComponent 
+                  type="line" 
+                  data={recentActivityData} 
+                  title="Activité quotidienne"
+                  options={{
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
                     }
-                  }
-                }}
-              />
+                  }}
+                />
+              ) : (
+                <p className="text-center text-muted">Aucune activité récente</p>
+              )}
             </div>
           </div>
         </div>
@@ -293,18 +325,22 @@ const Dashboard = () => {
               <h5>Tendance d'inscription des utilisateurs</h5>
             </div>
             <div className="card-body">
-              <ChartComponent 
-                type="bar" 
-                data={userRegistrationData} 
-                title="Inscriptions mensuelles"
-                options={{
-                  scales: {
-                    y: {
-                      beginAtZero: true
+              {userRegistrations?.length > 0 ? (
+                <ChartComponent 
+                  type="bar" 
+                  data={userRegistrationData} 
+                  title="Inscriptions mensuelles"
+                  options={{
+                    scales: {
+                      y: {
+                        beginAtZero: true
+                      }
                     }
-                  }
-                }}
-              />
+                  }}
+                />
+              ) : (
+                <p className="text-center text-muted">Aucune donnée d'inscription disponible</p>
+              )}
             </div>
           </div>
         </div>
